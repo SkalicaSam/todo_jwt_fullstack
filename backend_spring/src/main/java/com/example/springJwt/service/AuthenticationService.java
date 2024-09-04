@@ -31,6 +31,15 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse register (User request){
+
+        String username = request.getUsername();
+        if (repository.findByUsername(username).isPresent()) {
+            // Môžeš buď vyvolať vlastnú výnimku
+//            throw new RuntimeException("User with username " + username + " already exists");
+            // Alebo môžeš vrátiť nejakú špecifickú odpoveď, napr. chybové hlásenie
+             return new AuthenticationResponse("User with username " + username + " already exists");
+        }
+
         User user =  new User();
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());

@@ -1,3 +1,8 @@
 https://www.youtube.com/watch?v=OpSU0VgfkL4
 
 Learn With Ifte
+
+GIT UPLOAD 
+git add .
+git commit -m "Popis zmien"
+git push origin hlavná_vetva
