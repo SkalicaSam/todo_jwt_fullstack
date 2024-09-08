@@ -1,0 +1,70 @@
+(ignore this lines with second instaling react on your machine){
+  https://nodejs.org/en/download/prebuilt-installer
+  enter enter otvori sa povershell
+  2 zalozime si novy folder
+}
+
+3 cmd: npx create-react-app todolist
+4 cmd: cd todolist    // vstupime do folderu.
+5 cmd: code .     // otvorime vo visualstudiocode. 
+
+Spustenie vo VSC:
+1 click terminal
+2 START v terminali:  npm start + enter
+3 STOP v terminali:  ctrl +c +y
+
+
+npm install bootstrap
+npm install axios
+npm install --save-dev css-loader 
+
+dellete file  reportWebVitals.js
+dellete file  setupTests.js 
+
+
+Clearing page:
+Open Index.js   : rename header of page to this:
+      import React from 'react';
+      import ReactDOM from 'react-dom/client';
+      import './index.css';
+      import App from './App';
+      import reportWebVitals from './reportWebVitals';
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(
+          <App />, 
+      );
+
+
+Open App.js and dell everything in function 
+      function App() {
+        return (<>   </>
+        );
+      }
+      export default App;
+
+Navbar creating: 
+Install VSC Extention: // to create function later in Navbar.js :
+ES7 react/redux/gr..
+
+in Navbar.js start writing rfce and click reactFuncionalExportComponent.
+
+npm install --save react-router-dom
+npm install react-router-dom
+ 
+ import { Link } from 'react-router-dom';
+
+
+ http://localhost:3000/#/users
+
+
+ alt control +l zarovnanie riadkov
+
+
+ GIT cmd:
+
+Ukladanie:
+git status
+git add .
+git commit -m "Popis vašich změn"  
+git push origin main

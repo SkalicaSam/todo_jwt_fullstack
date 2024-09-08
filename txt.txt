@@ -5,4 +5,4 @@ Learn With Ifte
 GIT UPLOAD 
 git add .
 git commit -m "Popis zmien"
-git push origin hlavná_vetva
+git push origin main 	hlavná_vetva
