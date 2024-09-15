@@ -1,23 +1,65 @@
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from './AuthContext';
 
 const TasksByLoggedUser = () => {
+  const { token, logout } = useContext(AuthContext);  // Používáme logout místo setToken
+  const [tasks, setTasks] = useState([]);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);  // Stav pro načítání
 
-    return(
-        <>
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/tasks/usertasks', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setTasks(response.data);
+      } catch (error) {
+        setError(`Nepodarilo sa načítať úlohy: ${error.message}`);
+        console.error("Error fetching tasks:", error.response || error);
+      } finally {
+        setLoading(false);  // Po dokončení načítání nastavíme loading na false
+      }
+    };
 
-            <div>
-                <h1> TasksByLoggedUser   Vítejte2 na mé jednoduché stránce v Reactu! <br></br>
-                    http://localhost:3000/</h1>
-                <p>Toto je moje první stránka vytvořená v ReactJS.</p>
-            </div>
+    if (token) {
+      fetchTasks();
+    }else {
+        setTasks([]); // Vymažeme úkoly, když není token
+        setLoading(false); // I když není token, načítání ukončíme
+      }
+  }, [token]);
 
-        </>
-    );
+  const handleLogout = () => {
+    logout(); // Používáme funkci logout z AuthContextu
+    navigate('/tasks');
+  };
+
+  if (loading) {
+    // Místo komponenty vrátíme informaci o načítání, dokud není hotové
+    return <p>Načítám data...</p>;
+  }
+
+  return (
+    <div>
+      <h2>Vaše úlohy</h2>
+      {error && <p>{error}</p>}
+      <ul>
+        {tasks.map(task => (
+          <li key={task.id}>{task.name}</li>
+        ))}
+      </ul>
+      {token ? <p>Váš token: {token}</p> : <p>Není k dispozici žádný token.</p>}
+      
+       {/* Zobrazí se tlačítko pouze pokud je token přítomen */}
+       {token && (
+        <button onClick={handleLogout}>Odhlásiť sa</button>
+      )}
+    </div>
+  );
 };
-
 
 export default TasksByLoggedUser;

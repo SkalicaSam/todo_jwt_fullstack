@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
 @RequestMapping("/tasks")
+
 public class TaskController {
 
     @Autowired
@@ -26,6 +27,9 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000/"
+//            , allowedHeaders = {"Authorization", "Content-Type"}
+    )
     @GetMapping("/usertasks")
     public List<Task> getAllUsersTasksByUserToken(@RequestHeader("Authorization") String token) {
         return taskService.getAllTasksByUserToken(token);

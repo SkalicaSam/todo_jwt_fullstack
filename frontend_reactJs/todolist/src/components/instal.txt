@@ -68,3 +68,6 @@ git status
 git add .
 git commit -m "Popis vašich změn"  
 git push origin main
+
+In backend Y must specificate who is gona to use this, or that return cros origin eror
+@CrossOrigin(origins = "http://localhost:3000")
