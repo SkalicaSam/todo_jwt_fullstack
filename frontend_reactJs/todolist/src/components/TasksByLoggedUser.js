@@ -33,9 +33,19 @@ const TasksByLoggedUser = () => {
       }
   }, [token]);
 
-  const handleLogout = () => {
-    logout(); // Používáme funkci logout z AuthContextu
-    navigate('/tasks');
+  const handleLogout = async () => {  // Přidáme async tady
+    try {
+      // Pošleme POST požadavek na /logout s tokenem
+      await axios.post('http://localhost:8080/logout', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // Odhlásíme uživatele lokálně
+        logout(); // Používáme funkci logout z AuthContextu
+        setTasks([]);
+        navigate('/tasks');
+    } catch (error) {
+        console.error('Chyba při odhlašování:', error);
+      }
   };
 
   if (loading) {
